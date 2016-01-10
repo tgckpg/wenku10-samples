@@ -1,0 +1,68 @@
+<ProcSpider>
+  <WTAG WS_ID="Procedures" Async="0" Guid="4181b371-10d2-4c37-be14-dc24d8fd11a5">
+    <WTAG WS_ID="Proc0" Name="書籍の情報をダウンロード" Incoming="0" Prefix="" ProcType="URLLIST">
+      <WTAG WS_ID="0" url="http://ncode.syosetu.com/novelview/infotop/ncode/n9669bk/" />
+    </WTAG>
+    <WTAG WS_ID="Proc1" Name="その情報で抽出する" TargetUrl="http://ncode.syosetu.com/novelview/infotop/ncode/n9669bk" Incoming="1" ProcType="EXTRACT">
+      <WTAG WS_ID="RegItem0" Pattern="&lt;th&gt;掲載日&lt;/th&gt;[\s\S]*?&lt;td&gt;([^&gt;]+)&lt;/td&gt;" Format="{1}" Enabled="1" Type="Date" i="0">
+        <WTAG WS_ID="SubProc" Async="0" Guid="efa0e75d-41ef-477d-a4f1-bb6f3248c75f" />
+      </WTAG>
+      <WTAG WS_ID="RegItem1" Pattern="&lt;th&gt;作者名&lt;/th&gt;[\s\S]*?&lt;td&gt;&lt;a[^&gt;]+&gt;([^&gt;]+)&lt;/a&gt;" Format="{1}" Enabled="1" Type="Author" i="1">
+        <WTAG WS_ID="SubProc" Async="0" Guid="ace15dd5-7089-47ec-8c6f-c8d4dffa0a6c" />
+      </WTAG>
+      <WTAG WS_ID="RegItem2" Pattern="&lt;h1&gt;&lt;a[^&gt;]+&gt;([^&lt;]+)&lt;/a&gt;" Format="{1}" Enabled="1" Type="Title" i="2">
+        <WTAG WS_ID="SubProc" Async="0" Guid="08c10161-6da1-433d-a5b0-9d4c2da735e1" />
+      </WTAG>
+      <WTAG WS_ID="RegItem3" Pattern="&lt;th&gt;ブックマーク登録&lt;/th&gt;[\s\S]*?&lt;td&gt;([^&gt;]+)&lt;/td&gt;" Format="{1}" Enabled="1" Type="FavCount" i="3">
+        <WTAG WS_ID="SubProc" Async="0" Guid="08ee7e3f-fc48-4470-a417-41452b6a4c6f" />
+      </WTAG>
+      <WTAG WS_ID="RegItem4" Pattern="&lt;th&gt;総合評価&lt;/th&gt;[\s\S]*?&lt;td&gt;([^&gt;]+)&lt;/td&gt;" Format="{1}" Enabled="1" Type="PushCount" i="4">
+        <WTAG WS_ID="SubProc" Async="0" Guid="778f47e9-7963-4e9f-adad-f842c364634e" />
+      </WTAG>
+      <WTAG WS_ID="RegItem5" Pattern="&lt;th class=&quot;ex&quot;&gt;あらすじ&lt;/th&gt;[\s\S]*?&lt;td[^&gt;]*&gt;([\s\S]*?)&lt;/td&gt;" Format="{1}" Enabled="1" Type="Intro" i="5">
+        <WTAG WS_ID="SubProc" Async="0" Guid="9ea241d5-6588-4051-9730-9987b64e8be3">
+          <WTAG WS_ID="Proc0" TestLink="" Mode="REPLACE" ProcType="FIND">
+            <WTAG WS_ID="RegItem0" Pattern="\n" Format="" Enabled="1" i="0" />
+            <WTAG WS_ID="RegItem1" Pattern="&lt;br /&gt;" Format="\n" Enabled="1" i="1" />
+          </WTAG>
+          <WTAG WS_ID="Proc1" TargetUrl="" Incoming="1" ProcType="EXTRACT">
+            <WTAG WS_ID="RegItem0" Pattern="[\s\S]+" Format="{0}" Enabled="1" Type="Intro" i="0">
+              <WTAG WS_ID="SubProc" Async="0" Guid="2cf42206-022f-4b4f-99e7-3ec7b28aaf2e" />
+            </WTAG>
+          </WTAG>
+        </WTAG>
+      </WTAG>
+      <WTAG WS_ID="RegItem6" Pattern="&lt;th&gt;文字数&lt;/th&gt;[\s\S]*?&lt;td&gt;([^&gt;]+)&lt;/td&gt;" Format="{1}" Enabled="1" Type="Length" i="6">
+        <WTAG WS_ID="SubProc" Async="0" Guid="1d2109a6-48d9-44f8-b883-d63f9de54e27" />
+      </WTAG>
+      <WTAG WS_ID="RegItem7" Pattern="&lt;span id=&quot;noveltype[^&quot;]*&quot;&gt;([^&lt;]+)&lt;/span&gt;" Format="{1}" Enabled="1" Type="Status" i="7">
+        <WTAG WS_ID="SubProc" Async="0" Guid="cab01603-7ba1-4b54-b8a1-d55bd35b8870" />
+      </WTAG>
+      <WTAG WS_ID="RegItem8" Pattern="" Format="小説家になろう" Enabled="1" Type="Press" i="8">
+        <WTAG WS_ID="SubProc" Async="0" Guid="aaf291f0-2906-4e3e-aaa3-5e8e6373587a" />
+      </WTAG>
+    </WTAG>
+    <WTAG WS_ID="Proc2" Name="目次をダウンロード" Incoming="0" Prefix="" ProcType="URLLIST">
+      <WTAG WS_ID="0" url="http://ncode.syosetu.com/n9669bk/" />
+    </WTAG>
+    <WTAG WS_ID="Proc3" Name="目次の試合" TestLink="http://ncode.syosetu.com/n9669bk/" Mode="MATCH" ProcType="FIND">
+      <WTAG WS_ID="RegItem0" Pattern="&lt;div class=&quot;chapter_title&quot;&gt;([^&lt;]+)&lt;/div&gt;" Format="[Vols] {1}" Enabled="1" i="0" />
+      <WTAG WS_ID="RegItem1" Pattern="&lt;dd[^&gt;]+&gt;&lt;a href=&quot;([^&quot;]+)&quot;&gt;([^&lt;]+)&lt;/a&gt;&lt;/dd&gt;" Format="[Chs][{1}] {2}" Enabled="1" i="1" />
+    </WTAG>
+    <WTAG WS_ID="Proc4" Name="チャプターとボリュームのマッピング" VolTitle="{1}" VolPattern="\[Vols\] (.+)" VolParam="" EpTitle="{2}" EpPattern="\[Chs\]\[([^\]]+)\] (.+)" EpParam="{1}" ProcType="MARK">
+      <WTAG WS_ID="VolProcs" Async="0" Guid="5f4dce1e-3e47-48a8-a112-5c923758247b" />
+      <WTAG WS_ID="EpProcs" Async="1" Guid="5f4272e1-a5d0-4506-8ad1-00f8e49fd990">
+        <WTAG WS_ID="Proc0" Name="着信パラメータ" Incoming="1" Prefix="http://ncode.syosetu.com/" ProcType="URLLIST" />
+        <WTAG WS_ID="Proc1" Name="空白とBRを削除、そして画像を再配置する" TestLink="http://ncode.syosetu.com/n9669bk/37/" Mode="REPLACE" ProcType="FIND">
+          <WTAG WS_ID="RegItem0" Pattern="&lt;br /&gt;" Format="" Enabled="1" i="0" />
+          <WTAG WS_ID="RegItem1" Pattern="^\s+" Format="" Enabled="1" i="1" />
+          <WTAG WS_ID="RegItem2" Pattern="&lt;a[^&gt;]+&gt;[^&lt;]*&lt;img src=&quot;([^&quot;]+)&quot;[^&gt;]+&gt;[^&lt;]*&lt;/a&gt;" Format="&lt;!--image--&gt;$1&lt;!--image--&gt;" Enabled="1" i="2" />
+          <WTAG WS_ID="RegItem3" Pattern="&lt;/?r([pbt]|(uby))&gt;" Format="" Enabled="0" i="3" />
+        </WTAG>
+        <WTAG WS_ID="Proc2" Name="内容を抽出" TestLink="http://ncode.syosetu.com/n9669bk/37/" Mode="MATCH" ProcType="FIND">
+          <WTAG WS_ID="RegItem0" Pattern="&lt;div[^&gt;]*class=&quot;novel_view&quot;[^&gt;]*?&gt;([\s\S]*?)&lt;/div&gt;" Format="{1}" Enabled="1" i="0" />
+        </WTAG>
+      </WTAG>
+    </WTAG>
+  </WTAG>
+</ProcSpider>

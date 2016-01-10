@@ -1,0 +1,71 @@
+<ProcSpider>
+  <WTAG WS_ID="Procedures" Async="0" Guid="5a296620-a8a3-452b-bb22-bb28bf7b7793">
+    <WTAG WS_ID="Proc0" Name="書籍の情報を抽出する" TargetUrl="http://novel.fc2.com/novel.php?mode=tc&amp;nid=65949&amp;pg=0" Incoming="0" ProcType="EXTRACT">
+      <WTAG WS_ID="RegItem0" Pattern="&lt;h2 class=&quot;sh_heading_main_a&quot;&gt;([^&lt;]+)&lt;/h2&gt;" Format="{1}" Enabled="1" Type="Title" i="0">
+        <WTAG WS_ID="SubProc" Async="0" Guid="40ad0eba-d0b4-4cc6-aa55-f064514ed5aa" />
+      </WTAG>
+      <WTAG WS_ID="RegItem1" Pattern="&lt;th&gt;作成日&lt;/th&gt;[\s\S]*?(\d{4}-\d{2}-\d{2})&lt;/p&gt;" Format="{1}" Enabled="1" Type="Date" i="1">
+        <WTAG WS_ID="SubProc" Async="0" Guid="7d9eee46-f75b-46f0-985b-433aa3ec58d5" />
+      </WTAG>
+      <WTAG WS_ID="RegItem2" Pattern="&lt;th&gt;閲覧数&lt;/th&gt;[\s\S]*?&lt;td&gt;&lt;p&gt;(\d+)&lt;/p&gt;" Format="{1}" Enabled="1" Type="TotalHitsCount" i="2">
+        <WTAG WS_ID="SubProc" Async="0" Guid="8f5f437e-c708-4ad4-afe8-b36ec6b23fa5" />
+      </WTAG>
+      <WTAG WS_ID="RegItem3" Pattern="&lt;th&gt;状態&lt;/th&gt;[\s\S]*?&lt;p&gt;([^&lt;]+)&lt;/p&gt;" Format="{1}" Enabled="1" Type="Status" i="3">
+        <WTAG WS_ID="SubProc" Async="0" Guid="e815d76c-5511-450f-a4eb-523ad57a21f6" />
+      </WTAG>
+      <WTAG WS_ID="RegItem4" Pattern="&lt;th&gt;ジャンル&lt;/th&gt;[\s\S]*?&lt;p&gt;([^&lt;]+)&lt;/p&gt;" Format="ジャンル: {1}" Enabled="1" Type="Others" i="4">
+        <WTAG WS_ID="SubProc" Async="0" Guid="1df69afa-dafc-4e95-90f1-ca355c0b2ff4" />
+      </WTAG>
+      <WTAG WS_ID="RegItem5" Pattern="&lt;p class=&quot;novel_comment&quot;&gt;([\s\S]*?)&lt;/p&gt;" Format="{1}" Enabled="1" Type="Intro" i="5">
+        <WTAG WS_ID="SubProc" Async="0" Guid="51a789b4-95de-41f3-853b-6626740b4a14">
+          <WTAG WS_ID="Proc0" TestLink="http://novel.fc2.com/novel.php?mode=tc&amp;nid=65949&amp;pg=0" Mode="REPLACE" ProcType="FIND">
+            <WTAG WS_ID="RegItem0" Pattern="&lt;br /&gt;" Format="\n" Enabled="1" i="0" />
+            <WTAG WS_ID="RegItem1" Pattern="^\s+" Format="" Enabled="1" i="1" />
+          </WTAG>
+          <WTAG WS_ID="Proc1" TargetUrl="" Incoming="1" ProcType="EXTRACT">
+            <WTAG WS_ID="RegItem0" Pattern="[\s\S]+" Format="{0}" Enabled="1" Type="Intro" i="0">
+              <WTAG WS_ID="SubProc" Async="0" Guid="e581a0a5-5bd5-460b-ba86-86fb6715d82a" />
+            </WTAG>
+          </WTAG>
+        </WTAG>
+      </WTAG>
+      <WTAG WS_ID="RegItem6" Pattern="&lt;p class=&quot;username&quot;&gt;&lt;a[^&gt;]+&gt;([^&lt;]+)&lt;/a&gt;" Format="{1}" Enabled="1" Type="Author" i="6">
+        <WTAG WS_ID="SubProc" Async="0" Guid="9e8c996c-83a5-4509-818e-0a5b58f46cec" />
+      </WTAG>
+      <WTAG WS_ID="RegItem7" Pattern="" Format="FC2小説" Enabled="1" Type="Press" i="7">
+        <WTAG WS_ID="SubProc" Async="0" Guid="23790550-dc18-46f2-9ce0-02c1d8ae5664" />
+      </WTAG>
+    </WTAG>
+    <WTAG WS_ID="Proc1" Name="FC2 小説 目次ステッピング" EntryPoint="http://novel.fc2.com/novel.php?mode=tc&amp;nid=65949&amp;pg=0" Incoming="0" FirstStopSkip="0" DiscardUnmatched="0" ProcType="GENERATOR">
+      <WTAG WS_ID="NextIfs">
+        <WTAG WS_ID="RegItem0" Pattern="&lt;a href=&quot;([^&quot;]+)&quot; title=&quot;次の目次" Format="http://novel.fc2.com/novel.php{1}" Enabled="1" i="0" />
+      </WTAG>
+      <WTAG WS_ID="StopIfs">
+        <WTAG WS_ID="RegItem1" Pattern="" Format="" Enabled="0" i="1" />
+      </WTAG>
+    </WTAG>
+    <WTAG WS_ID="Proc2" Name="目次の試合" TestLink="http://novel.fc2.com/novel.php?mode=tc&amp;nid=65949&amp;pg=0" Mode="MATCH" ProcType="FIND">
+      <WTAG WS_ID="RegItem0" Pattern="&lt;li class=&quot;novel_subtitle&quot;&gt;&lt;a href=&quot;([^&quot;]+)&quot;[^&gt;]+&gt;([^&lt;]+)&lt;" Format="[{2}] http://novel.fc2.com/{1}" Enabled="1" i="0" />
+    </WTAG>
+    <WTAG WS_ID="Proc3" Name="チャプターとボリュームのマッピング" VolTitle="光の姫と魔法の一カ月" VolPattern="" VolParam="" EpTitle="{1}" EpPattern="\[([^\]]+)\] (.+)" EpParam="{2}" ProcType="MARK">
+      <WTAG WS_ID="VolProcs" Async="0" Guid="563962f2-8681-4fde-9581-8a1e03546583" />
+      <WTAG WS_ID="EpProcs" Async="1" Guid="6b1f4fd4-5de5-4b8f-96ff-2cf5137886c3">
+        <WTAG WS_ID="Proc0" Name="ページのステッピング" EntryPoint="http://novel.fc2.com/novel.php?mode=rd&amp;nid=65949&amp;pg=1" Incoming="1" FirstStopSkip="1" DiscardUnmatched="1" ProcType="GENERATOR">
+          <WTAG WS_ID="NextIfs">
+            <WTAG WS_ID="RegItem0" Pattern="&lt;a href=&quot;([^&quot;]+)&quot;&gt;次のページ" Format="http://novel.fc2.com/{1}" Enabled="1" i="0" />
+          </WTAG>
+          <WTAG WS_ID="StopIfs">
+            <WTAG WS_ID="RegItem1" Pattern="&lt;h2 class=&quot;novel_subtitle&quot;&gt;" Format="" Enabled="1" i="1" />
+          </WTAG>
+        </WTAG>
+        <WTAG WS_ID="Proc1" Name="空白を削除、ブレーク行目に&lt;br /&gt;に変換" TestLink="http://novel.fc2.com/novel.php?mode=rd&amp;nid=65949&amp;pg=1" Mode="REPLACE" ProcType="FIND">
+          <WTAG WS_ID="RegItem0" Pattern="^\s+" Format="" Enabled="1" i="0" />
+          <WTAG WS_ID="RegItem1" Pattern="&lt;br /&gt;" Format="\n" Enabled="1" i="1" />
+        </WTAG>
+        <WTAG WS_ID="Proc2" Name="内容を抽出" TestLink="http://novel.fc2.com/novel.php?mode=rd&amp;nid=65949&amp;pg=1" Mode="MATCH" ProcType="FIND">
+          <WTAG WS_ID="RegItem0" Pattern="&lt;div class=&quot;novel_body&quot;&gt;[\r\n]*\s*([\s\S]*?)&lt;/div&gt;" Format="{1}" Enabled="1" i="0" />
+        </WTAG>
+      </WTAG>
+    </WTAG>
+  </WTAG>
+</ProcSpider>
