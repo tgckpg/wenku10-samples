@@ -33,4 +33,9 @@
 
 #### ステップビュー
 ![基本的な手順](https://tgckpg.github.io/wenku10/ja/basic%20steps.png)  
-   1. 
+ステップビューはクモがあなたのスクリプトを進める方法の可視化を提供します。各ステップは、独自の機能を有しているが、一般的に頻繁に使用されるかもしれない4つのステップがあります。  
+##### URL定義 - URLリスト/ URLジェネレータ
+![URLリスト](https://tgckpg.github.io/wenku10/ja/spidereditor.png)  
+
+
+Still writing...
