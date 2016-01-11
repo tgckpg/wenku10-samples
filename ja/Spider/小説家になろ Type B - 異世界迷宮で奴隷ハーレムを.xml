@@ -57,7 +57,7 @@
           <WTAG WS_ID="RegItem0" Pattern="&lt;br /&gt;" Format="" Enabled="1" i="0" />
           <WTAG WS_ID="RegItem1" Pattern="^\s+" Format="" Enabled="1" i="1" />
           <WTAG WS_ID="RegItem2" Pattern="&lt;a[^&gt;]+&gt;[^&lt;]*&lt;img src=&quot;([^&quot;]+)&quot;[^&gt;]+&gt;[^&lt;]*&lt;/a&gt;" Format="&lt;!--image--&gt;$1&lt;!--image--&gt;" Enabled="1" i="2" />
-          <WTAG WS_ID="RegItem3" Pattern="&lt;/?r([pbt]|(uby))&gt;" Format="" Enabled="0" i="3" />
+          <WTAG WS_ID="RegItem3" Pattern="&lt;/?r([pbt]|(uby))&gt;" Format="" Enabled="1" i="3" />
         </WTAG>
         <WTAG WS_ID="Proc2" Name="内容を抽出" TestLink="http://ncode.syosetu.com/n9669bk/37/" Mode="MATCH" ProcType="FIND">
           <WTAG WS_ID="RegItem0" Pattern="&lt;div[^&gt;]*class=&quot;novel_view&quot;[^&gt;]*?&gt;([\s\S]*?)&lt;/div&gt;" Format="{1}" Enabled="1" i="0" />
