@@ -67,5 +67,8 @@ URLジェネレータは、一般的な文字列生成から少し異なって�
 ![ラベル対応](https://tgckpg.github.io/wenku10/ja/marker.png)  
 このステップはかなり複雑で、最初に下の概念を理解する必要があります。
 
-<ILLUSTRATIONS HERE>
+![マークプロセス](https://tgckpg.github.io/wenku10/ja/markingprocess.png)  
+マーカーは、コンテナで初期化されます。このコンテナは、ボリューム/チャプターのマッピングで定義された値を格納し、TOCコンテナと呼ばれています。
 
+![マークプロセス2](https://tgckpg.github.io/wenku10/ja/markingzoomout.png)  
+各ステップについては、このコンテナが渡され、終了後までの手順で追跡。どちらがこの本の目次を完了することになっています。
