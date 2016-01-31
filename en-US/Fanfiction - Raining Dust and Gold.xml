@@ -1,0 +1,49 @@
+<ProcSpider>
+  <WTAG WS_ID="Procedures" Async="0" Guid="526207c3-512e-4de9-8e4e-e5d678fd6b2b">
+    <WTAG WS_ID="Proc0" Incoming="0" Prefix="" ProcType="URLLIST">
+      <WTAG WS_ID="0" url="https://www.fanfiction.net/s/11452174/1/Raining-Dust-and-Gold" />
+    </WTAG>
+    <WTAG WS_ID="Proc1" Name="Filter chapter list" TestLink="https://www.fanfiction.net/s/11452174/1/Raining-Dust-and-Gold" Mode="MATCH" ProcType="FIND">
+      <WTAG WS_ID="RegItem0" Pattern="'&gt; &lt;SELECT id=chap_select [^&gt;]+&gt;(.+)&lt;/select&gt;" Format="{0}" Enabled="1" i="0" />
+    </WTAG>
+    <WTAG WS_ID="Proc2" Name="Get the chapters" TestLink="https://www.fanfiction.net/s/11452174/1/Raining-Dust-and-Gold" Mode="MATCH" ProcType="FIND">
+      <WTAG WS_ID="RegItem0" Pattern="&lt;option[\s\t]+value=(\d+) [^&gt;]*?&gt;([^&lt;]+)" Format="[{1}] {2}" Enabled="1" i="0" />
+    </WTAG>
+    <WTAG WS_ID="Proc3" Name="Construct TOC" VolTitle="Raining Dust and Gold" VolPattern="" VolParam="" EpTitle="{2}" EpPattern="\[(\d+)\] (.+)" EpParam="{1}/https://www.fanfiction.net/s/11452174/1/Raining-Dust-and-Gold" ProcType="MARK">
+      <WTAG WS_ID="VolProcs" Async="0" Guid="7fa3228d-ab04-4d39-95b0-326256b7bbb4" />
+      <WTAG WS_ID="EpProcs" Async="1" Guid="8f2366ca-b216-4077-a9db-1ef7583e5395">
+        <WTAG WS_ID="Proc0" Incoming="1" Prefix="https://www.fanfiction.net/s/11452174/" ProcType="URLLIST" />
+        <WTAG WS_ID="Proc1" Name="Get the contents" TestLink="https://www.fanfiction.net/s/11452174/1/Raining-Dust-and-Gold" Mode="MATCH" ProcType="FIND">
+          <WTAG WS_ID="RegItem0" Pattern="&lt;p&gt;([\w\., \(\)&lt;&gt;\/']+?)&lt;/p&gt;" Format="{1}" Enabled="1" i="0" />
+        </WTAG>
+        <WTAG WS_ID="Proc2" Name="Remove &lt;strong&gt;, &lt;em&gt;, etc" TestLink="https://www.fanfiction.net/s/11452174/1/Raining-Dust-and-Gold" Mode="REPLACE" ProcType="FIND">
+          <WTAG WS_ID="RegItem0" Pattern="&lt;/?em&gt;" Format="" Enabled="1" i="0" />
+          <WTAG WS_ID="RegItem1" Pattern="&lt;/?strong&gt;" Format="" Enabled="1" i="1" />
+        </WTAG>
+      </WTAG>
+    </WTAG>
+    <WTAG WS_ID="Proc4" Name="Extract basic information" TargetUrl="https://www.fanfiction.net/s/11452174/1/Raining-Dust-and-Gold" Incoming="0" ProcType="EXTRACT">
+      <WTAG WS_ID="RegItem0" Pattern="" Format="Raining Dust and Gold" Enabled="1" Type="Title" i="0">
+        <WTAG WS_ID="SubProc" Async="0" Guid="cab5559a-603f-4ae7-a2c8-be002fa08ca1" />
+      </WTAG>
+      <WTAG WS_ID="RegItem1" Pattern="- Favs: (.+?) -" Format="{1}" Enabled="1" Type="FavCount" i="1">
+        <WTAG WS_ID="SubProc" Async="0" Guid="4f8f51f5-f7fc-4568-ba0b-5afaa0c10665" />
+      </WTAG>
+      <WTAG WS_ID="RegItem2" Pattern="By:&lt;/span&gt; &lt;a class[^&gt;]+&gt;([^&lt;]+)&lt;/a&gt;" Format="{1}" Enabled="1" Type="Author" i="2">
+        <WTAG WS_ID="SubProc" Async="0" Guid="422aa804-63e3-4073-b136-493315fd64fc" />
+      </WTAG>
+      <WTAG WS_ID="RegItem3" Pattern="Published: &lt;span [^&gt;]+&gt;([^&lt;]+)&lt;/span&gt;" Format="{1}" Enabled="1" Type="Date" i="3">
+        <WTAG WS_ID="SubProc" Async="0" Guid="ef4d8f85-7463-4530-b260-1e34bc50ef5b" />
+      </WTAG>
+      <WTAG WS_ID="RegItem4" Pattern="- Words: (.+?) -" Format="{1}" Enabled="1" Type="Length" i="4">
+        <WTAG WS_ID="SubProc" Async="0" Guid="afda0a82-124e-4b6d-ae28-9b81ab99e1fc" />
+      </WTAG>
+      <WTAG WS_ID="RegItem5" Pattern="Updated: &lt;span[^&gt;]+&gt;(.+?)&lt;/span&gt;" Format="Updated: {1} ago" Enabled="1" Type="Others" i="5">
+        <WTAG WS_ID="SubProc" Async="0" Guid="3060d72c-acb3-40ef-bad8-a1a152849849" />
+      </WTAG>
+      <WTAG WS_ID="RegItem6" Pattern="2px' class='xcontrast_txt'&gt;(.+?)&lt;/div&gt;" Format="{1}" Enabled="1" Type="Intro" i="6">
+        <WTAG WS_ID="SubProc" Async="0" Guid="01b7572a-5bfc-4bc1-89d7-2c87c231a366" />
+      </WTAG>
+    </WTAG>
+  </WTAG>
+</ProcSpider>
