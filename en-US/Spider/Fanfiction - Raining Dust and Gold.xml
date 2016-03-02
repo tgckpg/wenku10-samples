@@ -44,6 +44,9 @@
       <WTAG WS_ID="RegItem6" Pattern="2px' class='xcontrast_txt'&gt;(.+?)&lt;/div&gt;" Format="{1}" Enabled="1" Type="Intro" i="6">
         <WTAG WS_ID="SubProc" Async="0" Guid="01b7572a-5bfc-4bc1-89d7-2c87c231a366" />
       </WTAG>
+      <WTAG WS_ID="RegItem7" Pattern="&gt;&lt;img class='cimage '[^&gt;]+src='([^']+)'" Format="https:{1}" Enabled="1" Type="Cover" i="7">
+        <WTAG WS_ID="SubProc" Async="0" Guid="ccd2e5d4-2e8a-4c7b-9556-9f9d610b3b3a" />
+      </WTAG>
     </WTAG>
   </WTAG>
 </ProcSpider>
